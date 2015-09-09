@@ -1,9 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 	Author: Nico Alt
 	See the file "LICENSE" for the full license governing this code.
 -->
-<WebView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/webView_main"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent">
+
+    <WebView
+        android:id="@+id/webView_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/rlInvalidCredentials"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvExceptAuthenticate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/except_authenticate"
+            android:textSize="30sp" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvExceptAuthenticate"
+            android:layout_centerHorizontal="true"
+            android:text="@string/notify_except_authenticate"
+            android:textSize="20sp" />
+    </RelativeLayout>
+</RelativeLayout>

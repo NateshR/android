@@ -16,11 +16,13 @@ import android.support.v4.app.NavUtils;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.HttpAuthHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import de.nico.asura.R;
 import de.nico.asura.tools.Utils;
@@ -30,6 +32,8 @@ public final class AuthWebView1 extends Activity {
     private static SharedPreferences prefs;
     private static String firstField;
     private static String secondField;
+
+    private RelativeLayout rlInvalidCredentials;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +83,9 @@ public final class AuthWebView1 extends Activity {
         webView.loadUrl(getString(R.string.menu_AuthWeb_1_url));
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setJavaScriptEnabled(getResources().getBoolean(R.bool.menu_AuthWeb_1_js));
+
+        //For showing error when invalid credentials
+        rlInvalidCredentials = (RelativeLayout)findViewById(R.id.rlInvalidCredentials);
     }
 
     private void checkLogin() {
@@ -154,6 +161,16 @@ public final class AuthWebView1 extends Activity {
         public void onReceivedHttpAuthRequest(WebView view,
                                               HttpAuthHandler handler, String host, String realm) {
             handler.proceed(firstField, secondField);
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+          if(view.getContentHeight()==0){
+            rlInvalidCredentials.setVisibility(View.VISIBLE);
+          }else{
+              rlInvalidCredentials.setVisibility(View.GONE);
+          }
         }
     }
 }
